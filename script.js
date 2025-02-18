@@ -1,26 +1,27 @@
 function calculateSchoolDays() {
     const today = new Date();
     const endDate = new Date('2025-05-31');
+    // List specific holidays that affect school days
     const holidays = [
-        { start: new Date('2025-02-24'), end: new Date('2025-03-02') }, // Winter break
-        { start: new Date('2025-04-17'), end: new Date('2025-04-21') }, // Easter break
+        new Date('2025-04-18'), // Good Friday
+        new Date('2025-04-21'), // Easter Monday
         new Date('2025-05-01'), // May Day
         new Date('2025-05-29') // Ascension Day
     ];
+
+    // Adding the range for the Winter break
+    const winterStart = new Date('2025-02-24');
+    const winterEnd = new Date('2025-03-02'); // Winter break ends on Sunday
 
     let totalDays = 0;
     let currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
     while (currentDate <= endDate) {
         const isWeekend = currentDate.getDay() === 0 || currentDate.getDay() === 6;
-        const isHoliday = holidays.some(holiday => {
-            if (holiday instanceof Date) {
-                return currentDate.getTime() === holiday.getTime();
-            }
-            return currentDate >= holiday.start && currentDate <= holiday.end;
-        });
+        const isWinterBreak = currentDate >= winterStart && currentDate <= winterEnd;
+        const isHoliday = holidays.some(holiday => currentDate.toDateString() === holiday.toDateString());
 
-        if (!isWeekend && !isHoliday) {
+        if (!isWeekend && !isHoliday && !isWinterBreak) {
             totalDays++;
         }
 
