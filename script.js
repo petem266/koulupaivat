@@ -25,7 +25,7 @@ function calculateSchoolDays() {
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    document.getElementById('daysLeft').innerText = `Total School Days Remaining: ${totalDays}`;
+    document.getElementById('daysLeft').innerText = `Koulupäiviä jäljellä: ${totalDays}`;
 }
 
 window.onload = calculateSchoolDays;
